@@ -37,7 +37,11 @@
 
 This project focuses on building a convolutional neural network (CNN) model capable of recognizing individual LEGO bricks from images. Leveraging deep learning techniques, specifically CNNs, the model classifies LEGO bricks into different categories. The project was undertaken as part of a Data Science bootcamp and aims to contribute to applications that require LEGO brick recognition.
 
+The Procje
+
 ## Team Composition
+
+The Project was made during the Data Science Bootcamp provided by **[InfoShareAcademy](https://infoshareacademy.com/)**
 
 - **Aleksandra Baran** - [LinkedIn](http://linkedin.com/in/alexabaran) | [GitHub](https://github.com/alexabaran)
 - **Dariusz Balcer** - [LinkedIn](https://www.linkedin.com/in/dariuszbalcer/) | [GitHub](https://github.com/montenegro-db)
@@ -431,6 +435,8 @@ The work on the project was not only an opportunity for our team to develop tech
 
 ## References
 
+- [InfoShareAcademy](https://infoshareacademy.com/)
+- [Blog article about the project (polish)](https://infoshareacademy.com/blog/lego-projekt-kursantow-data-science/)
 - [Kaggle B200C LEGO Classification Dataset](https://www.kaggle.com/datasets/ronanpickell/b200c-lego-classification-dataset)
 - [TensorFlow Installation Guide](https://www.tensorflow.org/install/pip)
 - [TensorFlow GPU Installation Guide](https://www.tensorflow.org/install/gpu)
