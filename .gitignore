@@ -1,2 +1,10 @@
 Hurricane_Analysis/.ipynb_checkpoints
 Cleaning US Census Data/Cleaning US Census Data_Solution.ipynb
+_My/$
+.venv/
+.ipynb_checkpoints/
+*_Solution.ipynb
+.env
+Exploring Mushrooms/Exploring Mushrooms_Solution.ipynb
+Hurricane_Analysis/Hurricane Analysis_Solution.ipynb
+Lego recognition/Lego.py

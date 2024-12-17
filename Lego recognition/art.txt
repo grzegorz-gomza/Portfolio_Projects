@@ -1,0 +1,135 @@
+Lego - Data Science students' project
+2 weeks ago
+ 574
+ 
+In the courses, participants primarily learn practical skills. Students divide into groups, choose a problem to solve, and then complete projects that go into their portfolios. We present to you the results of the Rocket Science team, which built a mini system that can recognize LEGO bricks as part of the Data Science course.
+Team composition
+The team consisted of three people: 
+•	Aleksandra Baran (LinkedIn, GitHub)
+•	Dariusz Balcer (LinkedIn, GitHub)
+•	Grzegorz Gomza (LinkedIn, GitHub)
+TEAM MENTOR/SUPERVISOR:
+Matthew May (LinkedIn)
+Project assumptions
+The project was created as part of a Data Science bootcamp credit and focuses on one of the world's most recognizable toys - LEGO bricks. Together we took on the challenge, using skills in data analysis, machine learning and computer vision.
+The motivation for the project came from a scenario presented by a fictional stakeholder - the creator of a startup that is working on an app that recognizes LEGO bricks based on users' photographs. Such a system could be helpful to LEGO collectors and enthusiasts alike, enabling quick identification of individual pieces.
+Our goal was to create a model that allows you to recognize individual LEGO elements from photos. 
+To achieve this, we created a model using what is known as deep learning, an advanced method of learning computers from large amounts of data. In particular, we used a convolutional neural network (CNN), which is specifically designed to work with images, including being able to recognize patterns in images, such as shapes and textures, making it ideal for such tasks as recognizing LEGO bricks.
+In the project, we used a dataset available on the Kaggle platform, which includes a wide collection of LEGO images of various shapes and sizes.
+LET'S START FROM THE BEGINNING, OR A FEW WORDS ABOUT LEGO:
+History of LEGO
+The creator of the bricks on which Lego products are modeled was Hilary Fisher Page. His company, Kiddicraft, launched the bricks in 1947 under the name Self-locking Building Bricks. Unfortunately, the invention was not a major commercial success.
+
+ The idea was adapted by the Lego company, which launched its own product in 1949, initially under the name Automatic Binding Bricks. Although Hilary F. Page held a patent for his invention, he was discouraged by the failure and did not take legal action to defend his rights. 
+Lego eventually acquired the rights to the bricks and the Kiddicraft trademark in 1981.
+ 
+Source: https://www.lego.com/
+MODEL DESIGN, OR THE CHALLENGES OF LEGO COLLECTIONS
+The catalog of all Lego bricks throughout their history includes nearly 84,000 items. Creating a complete system to recognize and classify all these items proved to be a major challenge, both in terms of resources and the time required to train and implement the final solution. Adding to the difficulty was the fact that while Lego bricks have retained full backward compatibility, they have undergone some modifications over the years. For example, the basic 4×2 block (part number 3001) has so far appeared in twelve different variants. 
+ 1
+Source: https://snakeandboris.blogspot.com/
+For a system that recognizes blocks, this posed an additional challenge. 
+On the one hand, we wanted the system to recognize that the same type of pad is involved when it is used in construction. On the other hand, it was important that it should also be able to identify a specific variant of the block, produced during a given period. For collectors, this could be a key functionality.
+We decided to build our model on a limited part of the catalog, consisting of "only" 20 blocks.
+ For each of them we assigned 4,000 images, 80% of which were used to train the model. We made this choice due to limited computing resources and the possibility of using the GPU.
+ 
+let's go deeper into the topic: convolutional network models
+To accomplish the task, we decided to use the aforementioned convolutional network. As a RocketScience team, we developed the "RocketNet" network architecture, taking a 64 px x 64 px color image as input.
+We used three convolution layers in the architecture, having 32, 64 and 128 filters, respectively. 
+Between these layers were placed the normalization and pooling layers. The transition from the convolution layer to the dense layer required the addition of a flattening layer. 
+The network included a dense layer with 512 neurons, followed by a dropout layer of 50%. 
+The ReLU activation function has been applied throughout the network. 
+The output layer consisted of 20 neurons, corresponding to the number of classes.
+Our network architecture resembles that of AlexNet to some extent. AlexNet is the name of a convolutional network developed in 2012 by Alex Krizhevsky for a competition that aimed to successfully recognize one of 1000 objects in a 224px x 224px image. The methods used and the network architecture developed was a milestone in the history of Deep Learning.  It can be said that RocketNet is a simplified version of AlexNet.  If Alex Net were to be reduced to a resolution of 64x64x3 and a classification of 20 images, we would end up with the network architecture used by Rocket Science.... 
+In RocketNet, we used two fewer convolutional layers than in AlexNet and dispensed with a second dense layer. 
+The difference can also be seen in the stride parameter: AlexNet moves the filter by 5 px in the first layers, while RocketNet does it in a 3 px jump.
+Because of these similarities, we decided to compare the two networks.
+ 
+Model training - what is it about and how did we do it in our project?
+Convolutional network training involves teaching a model to recognize patterns in images by adjusting the weights in the network based on the training data. Training the network is done repeatedly in a loop, until the network indicates the correct results on a previously prepared test data set. This uses what is known as back propagation of error, which allows the network to improve its performance with subsequent iterations (epochs) . This is an important step because it allows machines to understand and analyze visual data.
+Both models were trained twice. 
+The first training was conducted for 50 epochs to determine when the model was overtrained. 
+The second training was implemented with the number of epochs determined during the first training. 
+As a team, we decided that AlexNet was already sufficiently trained after 40 epochs, although the trend was still slightly upward. Most likely, due to the higher number of filters, the model learned more slowly, but that does not mean it was immune to overtraining.RocketNet was stopped after 10 epochs, as the model's performance on the validation set declined with each successive epoch.
+AlexNet:
+ 
+RocketNet:
+ 
+Network evaluation
+Based on the shape of the blocks, confusion could be expected in three pairs of blocks:
+(RocketNet)
+ 
+Meanwhile, most confusion was between:
+(RocketNet)
+ 
+It turned out that RocketNet had problems recognizing several pads, a problem that in fact mainly centered on one pad numbered 15070, which was confused with pad 15712. The other pads were not confused excessively often. 
+The effectiveness of RocketNet on the validation set was 88.9%.
+In the case of AlexNet, mistakes were much more frequent, and also occurred on the previously mentioned pads. However, larger errors occurred on other pads, such as 18651 and 11214. 
+AlexNet's efficiency on the validation set was90.9%.
+It can be generally concluded that AlexNet, due to its complexity, was not able to generalize as well as the simpler RocketNet. Based on this, it can be concluded that it is not always the more complex and complicated network that performs its assigned tasks better. 
+In summary, our RocketNet was only 2% "less" effective, but the errors were distributed among all classes, rather than concentrated on a few blocks, as was the case with AlexNet. 
+ 
+Based on the results obtained from testing the RocketNet and AlexNet models and their effectiveness, we can say that we are satisfied with the results. The fact that RocketNet, despite its lower efficiency, handled class diversity better and minimized concentrated errors gives us hope for further improvement of this model. This shows that simpler networks can be just as effective and even more stable in practical applications, opening up new possibilities in the exploration of network architectures.
+What does a neural network "see"?
+In order to gain a deeper understanding of what goes on in the process of image recognition through a convolutional network, the team decided to use the Grad-CAM technique to "look" deep into the network. In particular, this refers to analyzing which areas of an image influence the model's decisions and how the model interprets different visual features. This allows us to better understand how the convolutional network classifies objects, which can help further improve its performance. 
+The method involves generating a matrix, which is the result of "passing" an image through successive convolution
+ layers. A "thermal" scale is assigned to the image so generated. In the next step, this image is superimposed on the original image before it is processed by the neural network. The deeper the layer of the convolutional network, the less visual meaning this type of heatmap can generate. Finally, the last layer still passes through the dense layer, which is largely responsible for classification. It should be noted that the heatmaps generated in this way are only a visual representation of the mathematical calculations performed by the neural network.
+In the images below, the networks start at the very bottom, so the images should be interpreted from the bottom up. In them, we can see how AlexNet tried to accurately and comprehensively identify the objects in the image. RocketNet, on the other hand, also initially analyzed and generalized the entire image, and in the last step generated a heatmap that no longer resembled the original image. The final convolution layer only provided a signal to the dense network, which interpreted it as a class of block.
+ 
+ 
+How can this be used? Examples of applications:
+LEGO building app
+In summary, we have created an artificial intelligence model that recognizes LEGO bricks and opens up new possibilities in building design. Thanks to the application, the user can use the full potential of the bricks he owns. 
+Application features:
+•	Stack of blocks analysis - The application scans the available blocks and recognizes all the elements, which allows you to determine exactly what you are dealing with.
+•	Model suggestions - Based on the blocks identified, the app suggests various models that can be built, tailored to the chosen theme, such as vehicles, buildings or characters.
+•	List of needed elements - After selecting a model, the application will indicate which of the available blocks can be used for construction, matching the model with what we already have on hand. This allows us to create without having to buy additional elements.
+•	Automatic generation of instructions - When you decide on a specific model, the application automatically generates detailed step-by-step instructions, making the building process easier.
+ 
+Source: https://www.lego.com/
+It's a modern tool for any LEGO lover that transforms the creation process into something even more creative and accessible!
+App to support blind and visually impaired people in building LEGO sets
+The app aims to help blind and visually impaired people build LEGO sets, offering tools that not only improve skills, but also create engaging, interactive experiences. 
+LEGO has previously introduced Braille learning sets to support the education of blind children. 
+The application, which uses a neural network model to recognize blocks, extends these capabilities, making building accessible and fully adaptable.
+Application features:
+•	Project selection - The application begins by presenting the project, describing it in a simple and understandable way, tailored to the user, to encourage further interaction.
+•	LEGO Block Recognition - Thanks to the camera, the app automatically recognizes blocks and identifies them with voice prompts, making it easier to find the right pieces quickly.
+•	Learning Braille - Integration with Braille learning kits enables interactive learning games and tasks to support skill development in an accessible and engaging way.
+•	Voice instructions - The app offers step-by-step detailed voice instructions to help the user select the right blocks and place them in the right places.
+•	Interactive storytelling - We enrich the building process by telling stories about the models, such as interesting facts about real buildings or vehicles, making building more fascinating.
+•	Error detection - The application monitors the progress of construction, detects any errors and informs the user to correct them.
+•	Congratulations and suggestions - Once the build is complete, the app congratulates the user on achieving the goal and suggests further projects tailored to the user's skill level.
+ 
+Source: https://www.lego.com/
+This app not only opens up the world of LEGO to blind and visually impaired people, but also enhances their creativity and develops their abilities through engaging and educational experiences.
+An application to organize and manage your LEGO collection
+Such an application is an innovative tool that allows you to catalog and manage LEGO bricks in a simple and intuitive way. 
+With the scanning function, users can automatically recognize and record detailed information about their blocks, including their type and quantity, which helps in efficient organization.
+Application features:
+•	Automatic block recognition - The user scans the blocks and the app automatically identifies their shape, color and other features, saving the data to a digital collection.
+•	Segregate by category - The app makes it easy to sort blocks based on their shapes, colors and types, making it much easier to organize and quickly find the pieces you need.
+•	Support for companies - The application is also useful for companies that deal with buying large quantities of mixed bricks. It allows quick sorting of LEGO and rejection of third-party bricks, which increases work efficiency.
+ 
+Source: https://www.lego.com/
+The app is ideal for LEGO enthusiasts and professionals alike, offering simple and efficient management of even the largest brick collections.
+LEGO shopping and replacement app
+The app helps LEGO fans manage their collection efficiently, making it easier to complete sets and replace and purchase missing pieces. 
+With modern features, users can take full advantage of expanding their collection.
+Application features:
+•	Scanning and identifying blocks - Users can scan blocks using their smartphone's camera, and the app automatically recognizes and catalogs the items, making it easier to manage the collection.
+•	Finding missing items - The application analyzes the user's collections, identifying missing items in sets, which speeds up their completion.
+•	Shopping hints - The app compares prices of missing blocks in various online and stationary stores, offering the best purchase options so that the user can choose the best deal.
+•	Brick swapping platform - The app allows users to swap LEGO bricks with other collectors. You can offer surplus pieces and look for the ones you need to complete your sets.
+•	Purchase recommendations - Based on an analysis of the user's collection and preferences, the app suggests new LEGO sets that may be of interest to the user.
+ 
+Source: https://www.lego.com/
+With this app, LEGO fans can easily manage their collections, complete missing pieces and connect with other collectors to create a more diverse and rich collection.
+Summary
+Finally, we would like to express our immense appreciation to Matthew May, our course supervisor, who oversaw the entire project. His support was invaluable not only in the context of this particular endeavor, but also in previous projects carried out during the course. Matthew was always there to provide advice and assistance, and we could count on his involvement in every situation, which definitely facilitated our learning and task completion. His responsibility and willingness to help were crucial to our success throughout the bootcamp.
+The work on the project was not only an opportunity for our team to develop technically, but also a chance for great collaboration. Each member of the team brought their unique experience and skills, which allowed us to look at many issues from different perspectives. This diversity of experience was our strength - we were able to discuss freely, exchange ideas and find innovative solutions. 
+Thanks to our cooperation, the LEGO project has become more than just a task for credit. LEGO bricks have been bringing joy to children and adults alike for years. It's an iconic toy that we all know and love.
+Of course, as with any project, we encountered some challenges. Hardware limitations meant that we could not test our model on as wide a range of LEGO bricks as we would have liked. But despite these difficulties, we were able to create a functional model that has the potential for further development. Our work on the project has only whetted our appetite for more - we would love to continue it with more resources at our disposal.
+We are extremely satisfied with the results of our work and the course of the entire project. What's more, we believe that the friendships made during the course will last longer than until the end of our bootcamp. 
+None of the team members were programmers before - we come from different industries, and before the course we had no experience with Data Science or the IT industry more broadly. We hope that someday we will still be able to collaborate together on a project.
+
